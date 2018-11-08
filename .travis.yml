@@ -8,7 +8,7 @@ env:
   - TEST_SUITE=3.7
 
 before_script:
-- docker build --build-arg PYTHON_VERSION=${test_suite} -t "bionic-python:${TEST_SUITE}" .
+- docker build --build-arg PYTHON_VERSION=${TEST_SUITE} -t "bionic-python:${TEST_SUITE}" .
 
 script: make ${TEST_SUITE}
 jobs:
