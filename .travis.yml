@@ -11,11 +11,10 @@ env:
   - secure: tbm5ojorJ9WcwyEyVdmKgnJpn0BPV4ErdG1YIP4dn/Gkp3CHoU5qPi/l+69At4ukXQc5Oz5SvyGCd//3ucDz8StsCtoqTTTio8Mq5k2itrZ6LPN8igaSyXknT7/lAKwC2d+YPlLBr18CgIXEdzr15407H2DFvAxQquJwhiPpB1hG2ABGHAItfwVgdZjkla6DNkrSTfrR/uKqCn0iIuk3PwFV9yG0I3xrRv7uzRd6H7Q1Tyo9IH7HaH6C1hcGhz+AyUyb1gUY2URWyhtQkjMBcHaKLQ/U5Ak1HRSB22u8GMnYS1vOI14bNG699FmvVbI8Wa9IZ6IGY4iVMyNTlEs4lCwa6SG86kleF4vssR3xIlst46qil1MzWet2YzJJSLNkOE6m34vXTK1WaqwABk3ElNS165QbtcxEiRIiHcD01u10uLV1Pp6mHo6S6K3TMGyUVa12ZHRO6MkzjI1hlh7457vPKFj31jdre3/l5rytOrbp7KsQSGMxVogIDNFhOmaUgts5JJPffVVbN3f+ftUFNwGqjWZ1ApDg7aZOlws3qAkIQZuE+uDvE2R4OlPElwxwMb3IYddxanUoY+SgIsErpAUIrS29sC5KUhr10Y5K3OkKZ2P2IOjJFsztMcOcVh/IBHBq5Hixd9/B6n2vqLLY+95cABEBKkbbeDxMEFyqrqE=
 
 script:
-- docker build --build-arg PYTHON_VERSION=${TEST_SUITE} .
+- docker build --build-arg PYTHON_VERSION=${TEST_SUITE} -t bionic-python:${TEST_SUITE} .
 
 after_success:
 - echo "${DOCKER_PASSWORD}" | docker login --username="${DOCKER_USER}" --password-stdin
 - if [[ ${TRAVIS_PULL_REQUEST} == "false" ]] && [[ ${TRAVIS_BRANCH} == "master" ]]; then
-  docker tag ${TEST_SUITE} ${DOCKER_USER}/bionic-python;
   docker push ${DOCKER_USER}:bionic-python;
   fi
