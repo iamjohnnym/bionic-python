@@ -1,0 +1,19 @@
+sudo: required
+services:
+- docker
+env:
+  matrix:
+  - TEST_SUITE=2.7
+  - TEST_SUITE=3.6
+  - TEST_SUITE=3.7
+
+before_script:
+- docker build --build-arg PYTHON_VERSION=${test_suite} -t "bionic-python:${TEST_SUITE}" .
+
+script: make ${TEST_SUITE}
+jobs:
+  include:
+  - stage: deploy
+    script:
+    - echo "I would push"
+    env: TEST_SUITE=none
