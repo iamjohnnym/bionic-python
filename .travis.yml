@@ -7,13 +7,12 @@ env:
   - TEST_SUITE=3.6
   - TEST_SUITE=3.7
 
-before_script:
+script:
 - docker build --build-arg PYTHON_VERSION=${TEST_SUITE} -t "bionic-python:${TEST_SUITE}" .
 
-script: make ${TEST_SUITE}
 jobs:
   include:
   - stage: deploy
-    script:
+    after_success:
     - echo "I would push"
     env: TEST_SUITE=none
