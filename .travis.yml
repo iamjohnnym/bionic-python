@@ -16,6 +16,6 @@ script:
 after_success:
 - echo "${DOCKER_PASSWORD}" | docker login --username="${DOCKER_USER}" --password-stdin
 - if [[ ${TRAVIS_PULL_REQUEST} == "false" ]] && [[ ${TRAVIS_BRANCH} == "master" ]]; then
-  docker tag ${TEST_SUITE} ${DOCKER_USER}/${REPO};
-  docker push ${DOCKER_USER}:${REPO};
+  docker tag ${TEST_SUITE} ${DOCKER_USER}/bionic-python;
+  docker push ${DOCKER_USER}:bionic-python;
   fi
