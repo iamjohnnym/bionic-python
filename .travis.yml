@@ -14,8 +14,8 @@ script:
 - docker build --build-arg PYTHON_VERSION=${TEST_SUITE} .
 
 after_success:
-- echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+- echo "${DOCKER_PASSWORD}" | docker login --username="${DOCKER_USER}" --password-stdin
 - if [[ ${TRAVIS_PULL_REQUEST} == "false" ]] && [[ ${TRAVIS_BRANCH} == "master" ]]; then
-  docker tag ${REPO}:${TEST_SUITE};
+  docker tag ${TEST_SUITE} ${DOCKER_USERNAME}/${REPO};
   docker push ${DOCKER_USERNAME}:${REPO};
   fi
