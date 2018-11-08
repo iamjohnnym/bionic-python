@@ -13,13 +13,10 @@ env:
 script:
 - docker build --build-arg PYTHON_VERSION=${TEST_SUITE} -t "bionic-python:${TEST_SUITE}" .
 
-jobs:
-  include:
-  - stage: push
-    after_success:
-    - docker login -u $DOCKER_USER -p $DOCKER_PASS
-    - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then
-      docker tag $REPO:$TAG $REPO:$TRAVIS_BUILD_NUMBER;
-      docker push $REPO:$TRAVIS_BUILD_NUMBER;
-      fi
-    - docker push $REPO:$TAG
+after_success:
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then
+  docker tag $REPO:$TAG $REPO:$TRAVIS_BUILD_NUMBER;
+  docker push $REPO:$TRAVIS_BUILD_NUMBER;
+  fi
+- docker push $REPO:$TAG
