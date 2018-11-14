@@ -1,0 +1,7 @@
+# Ignore unneccessary files
+.git
+.github
+CHANGELOG.md
+LICENSE.md
+README.md
+RELEASE_POLICY.md
