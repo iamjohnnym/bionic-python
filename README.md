@@ -3,7 +3,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com)
 
-*Bionic-Python* is a multi-stage Docker image that packages `Ubuntu 18.04 (Bionic Beaver)` and some form of `Python['2.7','3.6','3.7']` together.  On a successful build step, `TravisCI` will push the images to DockerHub with the appropriate tags.
+*Bionic-Python* is a multi-stage Docker image that packages `Ubuntu 18.04 (Bionic Beaver)` and some form of `Python['2.7','3.4','3.5','3.6','3.7']` together.  On a successful build step, `TravisCI` will push the images to DockerHub with the appropriate tags.
 
 Ideally, the `base` should always remain the same no matter the version of Python running.  As such, no special steps are required to gain compatability between versions.
 
@@ -40,7 +40,11 @@ This project makes use of the following services:
 
 Current valid tags:
 
+* `iamjohnnym/bionic-python:latest`
+    * `latest` is `==3.7`
 * `iamjohnnym/bionic-python:2.7`
+* `iamjohnnym/bionic-python:3.4`
+* `iamjohnnym/bionic-python:3.5`
 * `iamjohnnym/bionic-python:3.6`
 * `iamjohnnym/bionic-python:3.7`
 
@@ -52,7 +56,11 @@ If you would like to build the image locally, you can do so with the following s
 git clone https://github.com/iamjohnnym/bionic-python.git
 cd bionic-python
 PY_VERSION=3.7
-docker build --build-arg PYTHON_VERSION=${PY_VERSION} -t localhost/bionic-python:${PY_VERSION} .
+docker build --build-arg PYTHON_VERSION=${TEST_SUITE} \
+             --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
+             --build-arg VCS_REF=$(git rev-parse --short HEAD) \
+             --build-arg VERSION=$(cat VERSION) \
+             -t iamjohnnym/bionic-python:${TEST_SUITE} .
 ```
 
 ## From DockerHub

@@ -4,13 +4,15 @@ services:
 env:
   matrix:
   - TEST_SUITE=2.7
+  - TEST_SUITE=3.4
+  - TEST_SUITE=3.5
   - TEST_SUITE=3.6
   - TEST_SUITE=3.7
   global:
   - secure: 1DNFgsBiU/dKCV9Ctp27G58WMppF1uZKYAgJoHLdKTHEqdHglKlApp2MVslKxdh3p+lEaJoHhXEYXiIAxqGAcAD3DrrEMLSKbAstmNlBhf1dxmBLWjhaC8EhlokM0AYOqhy5TJ0znZ8g9Mv9wmt+/AlY3XwBJuOd8qsn2/g1nXppp4Z1FFDavhF+R2rGxBMlztA292a03S+U1ywNH4fttlKZOwxp0iRd1tTa7TWxyVl8/+Fu/0RoSQgVzyZRMSGNoiKjcmcYbqv/8idpd+5QWq7VOXyc2PvcYqKh9bDP6O9VogYk+JoSXP+PeuCBpeX1uWQuEQWfbJkknGqWEjdosHEEmO4C5CoGeQyWrL6qDzPJm2+1tl+7ujiSys35YyzfFTHBZNGOHNsOL/Pr/GaAAwPDCUAuss5LARa/5oL/eDTsmijdxt7MLelJhzMu9soAtKqzgyZ4AT6DjZpPU95+VND5+n8Yo+R2HXX3Fg3kv0PRWfPRx9NDw1MHT4M6ZFz3sADDNlfFEhOCU89qRc6AHVU3AyXD20iyHHPX3yudzKcb70TtG8uf23y20kHZ/uOuLbvpbHG8SIuwHZlYI1JtBYuBZhD6u4Xv69lVkBW6+xQIBD04TOAY/mbGUQS11BPqXtaGeLKe8lo1DTfjprFewuPDeWG09Jc2O9ysGjrghUU=
   - secure: G8cjT/4j5Rjmy9rnZS7Bzvz14gjGfa1vJttS61WaFepzbIBw0DM+H9MUVvtKqRw75VHsF1Eq25jxIfx1Ben9N1E7JwjXXKCgbI+qvIHZLNbuIvhbnc7yknnsxsTVq0euPGupEWDuo5OOGRQ3WNN9+rA+sdM//bSr4+L5ckd0NhG1vbgeXxqk5ujdIPzRCYmfofFOjiXuOFpsn2Jsm1bn12JXk29i32XNdpTl+pe3ZKT0myw1MyycOHQ70UtgczleOXevZJNz4/+XTsfehIF1qUAL2T7tzLXLYm4eAo88yK8jiU+q2/GlJpcqOFuBkHwbyxmLcMCf1KJixy6iKpZepQ73lw7gomtLHq2x9I86XTVurgJoD8IjSWkylEHizuNE71MM2AMNw4hrXz3CpgaTNF9wBPAuJQuqRxL5jxRVn6ZKi5Qy1CZTFGxwQu2y6PykosmuHBSf1PgMCP9nz/0xNl/JAJrlQ4NQVdeAQ73WZjco2uXUXGIp9JsvB2dFthXG1a6RHNLcTWSOTYlpXFxCyhBm3GgDEskqq/dLyoE1zAvrpeS5vYYw3Ll5H6ebZRa4s/HpRXF+htx6dzx15IOQj05/E3m5e8GxiZB0h9Qv4R2Ff8ZDV97XuEDnHUM2MYG1dWrgFzVx4GFxSa/5a4xLxF/oysxyjCDghwLxhz0bmv8=
 script:
-- docker build --build-arg PYTHON_VERSION=${TEST_SUITE} -t iamjohnnym/bionic-python:${TEST_SUITE} .
+- docker build --build-arg PYTHON_VERSION=${TEST_SUITE} --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$(git rev-parse --short HEAD) --build-arg VERSION=$(cat VERSION) -t iamjohnnym/bionic-python:${TEST_SUITE} .
 after_success:
 - echo "${DOCKER_PASSWORD}" | docker login --username="${DOCKER_USER}" --password-stdin
 - if [[ ${TRAVIS_PULL_REQUEST} == "false" ]] && [[ ${TRAVIS_BRANCH} == "master" ]];

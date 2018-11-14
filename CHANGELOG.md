@@ -1,5 +1,9 @@
 # bionic-python ChangeLog
 
+## 1.0.1 2018-11-13
+* Added support for [Microbadger](https://microbadger.com)
+* Added `VERSION` file
+
 ## 1.0.0 2018-11-13
 * Added `README.md`
 * Added `LICENSE.md`
