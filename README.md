@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/iamjohnnym/bionic-python.svg?branch=master)](https://travis-ci.com/iamjohnnym/bionic-python)
 # Bionic-Python
 [![forthebadge](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com)
