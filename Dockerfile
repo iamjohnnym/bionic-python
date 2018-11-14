@@ -10,4 +10,6 @@ ENV LANG en_US.UTF-8
 
 FROM python:${PYTHON_VERSION}-alpine
 COPY --from=base . .
-LABEL repository.foo/python-bionic:${PYTHON_VERSION}=""
+
+LABEL authors="John Martin 'johnny@iamjohnny.com'"
+LABEL repository.iamjohnnym/python-bionic:${PYTHON_VERSION}=""
