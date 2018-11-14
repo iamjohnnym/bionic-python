@@ -1,6 +1,6 @@
 ARG PYTHON_VERSION=3.7
 
-FROM socrata/base-bionic AS base
+FROM ubuntu:18.04 AS base
 
 ENV DEBIAN_FRONTEND noninteractive
 
